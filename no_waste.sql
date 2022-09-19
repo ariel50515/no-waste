@@ -105,4 +105,3 @@ SELECT product_code, product_name, sum(transaction_quantity)
 FROM food_product
 LEFT JOIN food_product_transaction on food_product_sid=food_product.sid
 GROUP BY product_code, product_name
-having sum(transaction_quantity) > 0

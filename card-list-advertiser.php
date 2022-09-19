@@ -27,6 +27,7 @@ if(!empty($pKeys)) {
             <thead>
             <tr>
                 <th scope="col"><i class="fas fa-trash-alt"></i></th>
+                <th scope="col">商品</th>
                 <th scope="col">店家編號</th>
                 <th scope="col">商品編號</th>
                 <th scope="col">商品照</th>

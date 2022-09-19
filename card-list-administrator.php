@@ -45,14 +45,16 @@ if(!empty($pKeys)) {
                             </a>
                         </td>
                         <td><?= $r['sid'] ?></td>
-                        <td><?= $r['name'] ?></td>
-                        <td><?= $r['mobile'] ?></td>
-                        <td><?= $r['email'] ?></td>
-                        <td><?= $r['birthday'] ?></td>
+                        <td><?= $r['picture'] ?></td>
+                        <td><?= $r['product_categories'] ?></td>
+                        <td><?= $r['product_name'] ?></td>
+                        <td><?= $r['unit_price'] ?></td>
+                        <td><?= $r['sale_price'] ?></td>
+                        <td><?= $r['shop_deadline'] ?></td>
                         <!--
-                        <td><?= strip_tags($r['address']) ?></td>
-                -->
-                        <td><?= htmlentities($r['address']) ?></td>
+                        <td><?= strip_tags($r['food_pruduct']) ?></td>
+                        -->
+                        <td><?= htmlentities($r['food_pruduct']) ?></td>
                         <td>
                             <a href="edit-form.php?sid=<?= $r['sid'] ?>">
                                 <i class="fa-solid fa-pen-to-square"></i>
