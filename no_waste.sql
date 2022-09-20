@@ -61,7 +61,6 @@ SELECT `food_product`.*, `shop_list`.`shop_deadline`
     JOIN `shop_list` 
     ON `food_product`.`sid`=`shop_list`.`sid`
 
-
 --建立產品
 INSERT INTO `product_food`(`product_code`, `product_name`, `product_description`, `unit_price`, `sale_price`)  VALUES
 ('01-0001', 'Kobee cafe_肉桂捲', '<h3>每日新鮮製作的肉桂捲</h3>',100,60),

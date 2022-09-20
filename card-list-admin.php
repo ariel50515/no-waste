@@ -1,14 +1,14 @@
 <?php
-require __DIR__. '/__connect_db.php';
+require __DIR__. '/parts/connect_db.php';
 
-$pageName = 'card-list-administrator';
+$pageName = 'card-list-admin';
 // $pKeys = array_keys($_SESSION['cart']);
 
 $rows = []; // 預設值
 $data_ar = []; // dict
 
 if(!empty($pKeys)) {
-    $sql = sprintf("SELECT * FROM products WHERE sid IN(%s)", implode(',', $pKeys));
+    $sql = sprintf("SELECT * FROM food_product WHERE sid IN(%s)", implode(',', $pKeys));
     $rows = $pdo->query($sql)->fetchAll();
 
     foreach($rows as $r){
@@ -27,7 +27,7 @@ if(!empty($pKeys)) {
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th scope="col"><i class="fas fa-trash-alt"></i></th>
+                <!-- <th scope="col"><i class="fas fa-trash-alt"></i></th> -->
                 <th scope="col">商品編號</th>
                 <th scope="col">商品照</th>
                 <th scope="col">商品類別</th>

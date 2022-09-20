@@ -1,5 +1,5 @@
 <?php
-require __DIR__. '/__connect_db.php';
+require __DIR__. '/parts/connect_db.php';
 
 $pageName = 'card-list-advertiser';
 // $pKeys = array_keys($_SESSION['cart']);
@@ -27,7 +27,7 @@ if(!empty($pKeys)) {
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th scope="col"><i class="fas fa-trash-alt"></i></th>
+                <!-- <th scope="col"><i class="fas fa-trash-alt"></i></th> -->
                 <th scope="col">商品</th>
                 <th scope="col">店家編號</th>
                 <th scope="col">商品編號</th>
