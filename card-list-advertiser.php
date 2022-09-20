@@ -1,7 +1,8 @@
 <?php
 require __DIR__. '/__connect_db.php';
 
-$pKeys = array_keys($_SESSION['cart']);
+$pageName = 'card-list-advertiser';
+// $pKeys = array_keys($_SESSION['cart']);
 
 $rows = []; // 預設值
 $data_ar = []; // dict
