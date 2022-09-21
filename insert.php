@@ -51,7 +51,7 @@ $pageName = 'insert';
 <script>
     let img = document.querySelector("#img");
     let inp = document.querySelector("#picture");
-    inp.addEventListener("change" , (evt)=> {
+    inp.addEventListener("change" , (evt) => {
         const file = evt.target.files[0];
         img.src = URL.createObjectURL(file)
     })
@@ -74,7 +74,7 @@ $pageName = 'insert';
             if (!obj.success) {
                 alert(obj.error);
             } else {
-                alert('新增成功')
+                alert('已新增惜食商品')
                 location.href = 'list.php';
             }
         })
