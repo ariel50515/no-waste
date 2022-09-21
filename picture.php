@@ -22,7 +22,7 @@ if(empty($_FILES['picture']['name'])){
 }
 
 // 副檔名對應
-$ext = $extMap[$_FILES['single']['type']];
+$ext = $extMap[$_FILES['picture']['type']];
 if(empty($ext)){
     $output['error'] = '檔案格式錯誤: 請上傳 jpeg/png';
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
@@ -36,7 +36,7 @@ $output['filename'] = $filename;
 
 if(! 
     move_uploaded_file(
-        $_FILES['single']['tmp_name'],
+        $_FILES['picture']['tmp_name'],
         $folder. $filename
     )
 ) {
