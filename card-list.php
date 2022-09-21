@@ -8,17 +8,8 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 // 算總筆數
 $t_sql = "SELECT COUNT(1) FROM food_product";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
-
 $totalPages = ceil($totalRows / $perPage);
-
 $rows = [];
-
-$join = "SELECT `food_product`.*, `shop_list`.*
-FROM `food_product`
-JOIN `shop_list` 
-ON `food_product`.`sid`=`shop_list`.`sid`";
-
-
 
 // 如果有資料
 if ($totalRows) {
@@ -32,11 +23,22 @@ if ($totalRows) {
     }
 
     $sql = sprintf(
-        "SELECT * FROM food_product ORDER BY sid DESC LIMIT %s, %s",
+        "SELECT `food_product`.*, `shop_list`.*,`picture`.`picture_url`,`food_category`.*
+        FROM `food_product`
+        JOIN `shop_list` 
+        ON `food_product`.`sid`=`shop_list`.`sid`
+
+        JOIN `picture` 
+        ON `food_product`.`picture_sid`=`picture`.`sid` 
+
+        JOIN `food_category` 
+        ON `food_product`.`product_categories_sid`=`food_category`.`sid` 
+        
+        ORDER BY `food_product`.`sid` ASC LIMIT %s, %s",
         ($page - 1) * $perPage,
         $perPage
     );
-    $rows = $pdo->query($join)->fetchAll();
+    $rows = $pdo->query($sql)->fetchAll();
 }
 
 $output = [
@@ -46,7 +48,6 @@ $output = [
     'rows' => $rows,
     'perPage' => $perPage,
 ];
-
 // echo json_encode($output); exit;
 
 ?>
@@ -83,41 +84,47 @@ $output = [
         </div>
     </div>
 
-    <!-- <?php
-            if (empty($_SESSION['admin'])) {
-                include __DIR__ . '/list-table-no-admin.php';
-            } else {
-                include __DIR__ . '/list-table-admin.php';
-            }
-            ?> -->
-
     <div class="row">
         <div class="col">
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <!-- <th scope="col"><i class="fas fa-trash-alt"></i></th> -->
+                        <th scope="col">
+                            <i class="fas fa-trash-alt"></i>
+                        </th>
                         <th scope="col">商品編號</th>
                         <th scope="col">商品照</th>
+                        <th scope="col">商家名稱</th>
                         <th scope="col">商品類別</th>
                         <th scope="col">商品名</th>
                         <th scope="col">定價</th>
                         <th scope="col">折數</th>
                         <th scope="col">取餐時間</th>
-                        <th scope="col">編輯</th>
+                        <th scope="col">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
                         <tr>
+                            <td>
+                                <a href="javascript: delete_it(<?= $r['sid'] ?>)">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </td>
                             <td><?= $r['sid'] ?></td>
-                            <td><?= $r['picture'] ?></td>
+
+                            <td>
+                                <img src="./img/<?= $r['picture_url'] ?>" alt="" style="width:150px;">
+
+                            </td>
+                            <td><?= $r['shop_name'] ?></td>
                             <td><?= $r['product_categories'] ?></td>
                             <td><?= $r['product_name'] ?></td>
                             <td><?= $r['unit_price'] ?></td>
                             <td><?= $r['sale_price'] ?></td>
                             <td><?= $r['shop_deadline'] ?></td>
-                
                             <td>
                                 <a href="edit-form.php?sid=<?= $r['sid'] ?>">
                                     <i class="fa-solid fa-pen-to-square"></i>
@@ -138,22 +145,5 @@ $output = [
                 location.href = `delete.php?sid=${sid}`;
             }
         }
-        /*
-        table.addEventListener('click', function(event){
-            const t = event.target;
-            console.log(event.target);
-            if(t.classList.contains('fa-trash-can')){
-                t.closest('tr').remove();
-            }
-            if(t.classList.contains('fa-pen-to-square')){
-                // console.log(t.closest('tr').querySelectorAll('td'));
-                
-                console.log( 
-                    t.closest('tr').querySelectorAll('td')[2].innerHTML
-                );
-                
-            }
-        });
-        */
     </script>
     <?php include __DIR__ . '/parts/html-foot.php'; ?>
